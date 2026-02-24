@@ -1,0 +1,25 @@
+diff --git a/meson.build b/meson.build
+index f783194..646f477 100644
+--- a/meson.build
++++ b/meson.build
+@@ -336,7 +336,7 @@ i18n.merge_file(
+   install_dir: get_option('prefix') / get_option('datadir') / 'metainfo',
+ )
+ 
+-subdir('docs')
++
+ subdir('thunarx')
+ if get_option('gtk-doc')
+   subdir('docs' / 'reference' / 'thunarx')
+diff --git a/thunar/thunar-session-client.c b/thunar/thunar-session-client.c
+index 4edf57b..5615c43 100644
+--- a/thunar/thunar-session-client.c
++++ b/thunar/thunar-session-client.c
+@@ -42,7 +42,6 @@
+ #include "thunar/thunar-private.h"
+ #include "thunar/thunar-session-client.h"
+ 
+-#include <gdk/gdkx.h>
+ #include <glib/gstdio.h>
+ 
+ 

@@ -1,0 +1,46 @@
+# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# QNX Maintainer: Felix Xing <fxing@qnx.com>
+pkgname=thunar
+pkgver=4.21.2
+pkgrel=1
+pkgdesc="File manager for Xfce"
+url="https://docs.xfce.org/xfce/thunar/start"
+arch="all"
+license="GPL-2.0-or-later LGPL-2.0-only"
+depends="desktop-file-utils exo libintl gtk3 libxfce4ui"
+depends_dev="exo-dev gettext-dev xfce4-dev-tools"
+makedepends="
+    $depends_dev
+    glib-dev
+    gobject-introspection-dev
+    gtk3-dev
+    libxfce4ui-dev
+    pcre2-dev
+    xfce4-panel-dev
+    "
+subpackages="$pkgname-dev $pkgname-lang"
+source="https://archive.xfce.org/src/xfce/thunar/${pkgver%.*}/thunar-$pkgver.tar.xz
+        001-reomve-unused-x-headers.patch
+    "
+
+build() {
+    meson setup build \
+        --prefix=/usr \
+        -Db_lto=false \
+        -Dgtk-doc=false
+    meson compile -C build
+}
+
+check() {
+    meson test --print-errorlogs -C build
+}
+
+package() {
+    DESTDIR="$pkgdir" meson install --no-rebuild -C build
+    rm -rf "$pkgdir"/usr/lib/systemd
+}
+
+sha512sums="
+3d9205784a4b480255231d6f736b63fe4e7196aed4f2da89ddd42170e69e8a79a8d77785483b028d86c2ee9f02386213111f33277364b51116d42ccaaf2a06ea  thunar-4.21.2.tar.xz
+e552d75d74325c474fa313d1a01b15ee1780597bf4c770b88db4d5c97a56b1fb2bd9679201be687980270fc431f44a55f2a9aef13c9bfa815ab8651100e503bf  001-reomve-unused-x-headers.patch
+"
