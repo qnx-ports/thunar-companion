@@ -2,7 +2,7 @@
 # QNX Maintainer: Felix Xing <fxing@qnx.com>
 pkgname=thunar
 pkgver=4.21.2
-pkgrel=1
+pkgrel=${pkgrel:-0}
 pkgdesc="File manager for Xfce"
 url="https://docs.xfce.org/xfce/thunar/start"
 arch="all"
@@ -40,6 +40,7 @@ package() {
     rm -rf "$pkgdir"/usr/lib/systemd
 }
 
+options="$options ${DISABLE_CHECK:+!check}"
 sha512sums="
 3d9205784a4b480255231d6f736b63fe4e7196aed4f2da89ddd42170e69e8a79a8d77785483b028d86c2ee9f02386213111f33277364b51116d42ccaaf2a06ea  thunar-4.21.2.tar.xz
 e552d75d74325c474fa313d1a01b15ee1780597bf4c770b88db4d5c97a56b1fb2bd9679201be687980270fc431f44a55f2a9aef13c9bfa815ab8651100e503bf  001-reomve-unused-x-headers.patch
